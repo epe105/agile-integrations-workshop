@@ -21,9 +21,12 @@
       Content-Type: "application/x-www-form-urlencoded"
     body: "access_token={{ admintoken }}&name={{ name | urlencode }}&deployment_option=hosted&backend_version={{ '1' if backend_version == 'oidc' else backend_version }}&system_name={{ system_name }}"
     validate_certs: no
-    status_code: 201
+    status_code: [201, 422]
   register: create_svc_result
   when: configure_only == 'false'
+  retries: 3
+  delay: 10
+  until: create_svc_result is not failed
 
 - name: Get service Id
   xml:
@@ -49,6 +52,10 @@
     body: "access_token={{ admintoken }}&backend_version=oidc"
     validate_certs: no
   when: backend_version == 'oidc'
+  register: update_sso_service_result
+  retries: 3
+  delay: 10
+  until: update_sso_service_result is not failed
 
 - debug: var=proxy_config.production_endpoint
   when: proxy_config is defined
@@ -76,6 +83,10 @@
     {{ oidc_issuer }}"
     validate_certs: no
   when: proxy_config is defined
+  register: config_backend_proxy_result
+  retries: 3
+  delay: 10
+  until: config_backend_proxy_result is not failed
 
 - name: Create application plan
   uri:
@@ -86,9 +97,12 @@
       Content-Type: "application/x-www-form-urlencoded"
     body: "access_token={{ admintoken }}&name={{ application_plan.name | urlencode }}&system_name={{ application_plan.system_name }}&state=published"
     validate_certs: no
-    status_code: 201
+    status_code: [201, 422]
   register: create_plan_result
   when: application_plan is defined and configure_only == 'false'
+  retries: 3
+  delay: 10
+  until: create_plan_result is not failed
 
 - name: Get plan Id
   xml:
@@ -120,9 +134,12 @@
     &description={{ app_config.description }}&application_id={{ app_config.id }}\
     &user_key=12345{{ redirect_uri }}"
     validate_certs: no
-    status_code: 201
+    status_code: [201, 422]
   register: create_app_result
   when: app_config is defined and configure_only == 'false'
+  retries: 3
+  delay: 10
+  until: create_app_result is not failed
 
 - name: Get policy chain template
   uri:
@@ -146,5 +163,8 @@
     status_code: 200
   register: update_policies_result
   when: proxy_config is defined
+  retries: 3
+  delay: 10
+  until: update_policies_result is not failed
 
 - debug: var=update_policies_result
