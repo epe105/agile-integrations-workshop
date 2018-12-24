@@ -1,0 +1,24 @@
+[workshop]
+localhost ansible_connection=local
+
+[workshop:vars]
+ocp_domain=ocp-ai.redhatgov.io
+ocp_apps_domain=apps.ocp-ai.redhatgov.io
+usersno=1
+che=false
+fuse=true
+threescale=false
+apicurio=false
+gogs=false
+microcks=false
+sso=false
+backend=false
+user_projects=true
+user_tools_projects=true
+configure_only=false
+create_tenants=true
+create_realms=true
+create_ides=true
+create_fuses=true
+threescale_admin_access_token=admintoken
+threescale_master_access_token=mastertoken

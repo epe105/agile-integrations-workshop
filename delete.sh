@@ -1,9 +1,17 @@
-oc login -u shadowman -p r3dh4t1! https://ocp-ai.redhatgov.io --insecure-skip-tls-verify
+hostname=""
+cluster_admin=
+cluster_admin_password=""
 
-oc delete project user1
-oc delete project tools1
-oc delete project user2
-oc delete project tools2
+begin=1
+count=1
+
+oc login "$hostname" --insecure-skip-tls-verify -u $cluster_admin -p $cluster_admin_password
+
+for (( i = $begin; i <= $count; i++ )); do
+  oc delete project user${i}
+  oc delete project tools${i}
+done
+
 oc delete project gogs
 oc delete project microcks
 oc delete project 3scale
