@@ -3,6 +3,10 @@
 ## Prerequisites
 Must have an OpenShift Environment installed.
 
+## Workshop Configuration
+
+Update the install/ansible/inventory/workshop.inventory file to install the components needed for the workshop
+
 ## Run Provision Environment
 
 Update the provision_env.sh with cluster admin credentials and hostname to OpenShift Environment
