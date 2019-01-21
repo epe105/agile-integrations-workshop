@@ -9,11 +9,11 @@
   ignore_errors: true
 
 - name: Create image streams for RH SSO
-  shell: "oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/{{ sso_version }}/sso/sso72-image-stream.json -n openshift"
+  shell: "oc create -f https://raw.githubusercontent.com/epe105/application-templates/{{ sso_version }}/sso/sso72-image-stream.json -n openshift"
   when: configure_only == 'false' and imagestream_exists.failed
 
 - name: Create secrets for RH SSO
-  shell: "oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/{{ sso_version }}/secrets/sso-app-secret.json -n {{ sso_project }}"
+  shell: "oc create -f https://raw.githubusercontent.com/epe105/application-templates/{{ sso_version }}/secrets/sso-app-secret.json -n {{ sso_project }}"
   when: configure_only == 'false'
 
 - name: Create service account for clustering
@@ -25,12 +25,12 @@
   when: configure_only == 'false'
 
 - name: Create RH SSO app
-  shell: "oc new-app -f https://raw.githubusercontent.com/jboss-openshift/application-templates/{{ sso_version }}/sso/sso72-mysql-persistent.json -p HTTPS_NAME=jboss -p HTTPS_PASSWORD=mykeystorepass -p SSO_ADMIN_USERNAME=keyadmin \
+  shell: "oc new-app -f https://raw.githubusercontent.com/epe105/application-templates/{{ sso_version }}/sso/sso72-mysql-persistent.json -p HTTPS_NAME=jboss -p HTTPS_PASSWORD=mykeystorepass -p SSO_ADMIN_USERNAME=keyadmin \
   -p SSO_ADMIN_PASSWORD=keypassword -n {{sso_project}}"
   when: configure_only == 'false'
 
-- name: Wait until RH SSO API is available 
-  uri: 
+- name: Wait until RH SSO API is available
+  uri:
     url: https://secure-sso-{{sso_project}}.{{ocp_apps_domain}}
     method: HEAD
     follow_redirects: safe
@@ -44,7 +44,7 @@
 
 - name: Get templated realm
   uri:
-    url: 'https://raw.githubusercontent.com/jbossdemocentral/3scale-api-workshop/master/support/templates/realm-template.json'
+    url: 'https://raw.githubusercontent.com/epe105/3scale-api-workshop/master/support/templates/realm-template.json'
     return_content: yes
   register: get_realm
   when: create_realms
@@ -60,7 +60,7 @@
 - set_fact: TKN={{ (token_text.stdout | from_json).access_token }}
 
 - name: Increase Token Lifespan (60mins)
-  uri: 
+  uri:
     url: 'https://secure-sso-{{sso_project}}.{{ocp_apps_domain}}/auth/admin/realms/master'
     method: PUT
     body: "{\"realm\":\"master\", \"accessTokenLifespan\":\"3600\"}"

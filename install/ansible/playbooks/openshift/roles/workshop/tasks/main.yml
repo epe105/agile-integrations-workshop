@@ -5,6 +5,13 @@
   with_sequence: start=1 end={{ usersno }} format=%d
   when: user_projects
 
+- name: Make sure we go back to openshift project
+  shell: "oc project openshift"
+
+- name: Import Images
+  shell: "oc import-image mysql | oc import-image nodejs | oc import-image postgresql | oc import-image php | oc import-image fuse7-java-openshift:1.0 | oc import-image fuse7-java-openshift:1.1"
+  ignore_errors: true
+
 - import_role:
     name: provision_che
   when: che
@@ -36,3 +43,4 @@
 - import_role:
     name: provision_microcks
   when: microcks
+  

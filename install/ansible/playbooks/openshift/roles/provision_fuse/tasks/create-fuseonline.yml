@@ -81,14 +81,14 @@
     pod_to_wait:
       - syndesis-prometheus
 
-- name: resume todo
-  shell: oc rollout resume dc/todo -n {{ item }}
+#- name: resume todo
+#  shell: oc rollout resume dc/todo -n {{ item }}
 
-- include_tasks: ./fuseonline_wait_for_deploy.yml
-  vars:
-    fuseonline_project: '{{ item }}'
-    pod_to_wait:
-      - todo
+#- include_tasks: ./fuseonline_wait_for_deploy.yml
+#  vars:
+#    fuseonline_project: '{{ item }}'
+#    pod_to_wait:
+#      - todo
 
 #- name: Annotate the empty project as requested by user
 #  shell: "oc annotate namespace {{ item }} openshift.io/requester={{ item }} --overwrite"

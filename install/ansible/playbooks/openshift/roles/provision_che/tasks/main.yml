@@ -2,13 +2,13 @@
 - name: Make sure we go back do default project
   shell: "oc project default"
 
-- name: Get OAuth Token
-  shell: "oc whoami -t"
-  register: whoami_response
+#- name: Get OAuth Token
+#  shell: "oc whoami -t"
+#  register: whoami_response
 
-- set_fact: openshift_oauth_token={{ whoami_response.stdout }}
+#- set_fact: openshift_oauth_token={{ whoami_response.stdout }}
 
-- debug: var=openshift_oauth_token
+#- debug: var=openshift_oauth_token
 
 - name: Create user IDEs
   include_tasks: ./create-ide.yml

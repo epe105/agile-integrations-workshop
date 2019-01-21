@@ -2,15 +2,22 @@
 - name: Make sure we go back to default project
   shell: "oc project default"
 
+#- name: Create Gogs app
+#  shell: "oc new-app -f https://raw.githubusercontent.com/OpenShiftDemos/gogs-openshift-docker/master/openshift/gogs-template.yaml \
+#  -p GOGS_VERSION=0.11.34 -p SKIP_TLS_VERIFY=true -p HOSTNAME=gogs.{{ ocp_apps_domain }} -n {{ gogs_project }}"
+#  when: configure_only == 'false'
+#  register: create_gogs_app
+#  failed_when: create_gogs_app.stderr != '' and 'already exists' not in create_gogs_app.stderr
+
 - name: Create Gogs app
-  shell: "oc new-app -f https://raw.githubusercontent.com/OpenShiftDemos/gogs-openshift-docker/master/openshift/gogs-template.yaml \
+  shell: "oc new-app -f https://raw.githubusercontent.com/epe105/gogs-openshift-docker/master/openshift/gogs-persistent-template.yaml \
   -p GOGS_VERSION=0.11.34 -p SKIP_TLS_VERIFY=true -p HOSTNAME=gogs.{{ ocp_apps_domain }} -n {{ gogs_project }}"
   when: configure_only == 'false'
   register: create_gogs_app
-  failed_when: create_gogs_app.stderr != '' and 'already exists' not in create_gogs_app.stderr 
+  failed_when: create_gogs_app.stderr != '' and 'already exists' not in create_gogs_app.stderr
 
-- name: Wait until Gogs API is available 
-  uri: 
+- name: Wait until Gogs API is available
+  uri:
     url: http://gogs.{{ocp_apps_domain}}
     method: GET
     follow_redirects: safe
@@ -45,11 +52,11 @@
     url: 'https://raw.githubusercontent.com/RedHatWorkshops/dayinthelife-integration/master/support/templates/gogs.json'
     return_content: yes
   register: get_gitrepo
-  
+
 - debug: var=get_gitrepo.content
 
 - name: Config repo
-  uri: 
+  uri:
     url: 'http://gogs.{{ ocp_apps_domain }}/api/v1/repos/migrate'
     method: POST
     body: "{{ get_gitrepo.content | regex_replace('USER_ID', item) }}"
@@ -71,11 +78,11 @@
     url: 'https://raw.githubusercontent.com/RedHatWorkshops/dayinthelife-integration/master/support/templates/gogs-www.json'
     return_content: yes
   register: get_gitrepo
-  
+
 - debug: var=get_gitrepo.content
 
 - name: Config repo
-  uri: 
+  uri:
     url: 'http://gogs.{{ ocp_apps_domain }}/api/v1/repos/migrate'
     method: POST
     body: "{{ get_gitrepo.content | regex_replace('USER_ID', item) }}"

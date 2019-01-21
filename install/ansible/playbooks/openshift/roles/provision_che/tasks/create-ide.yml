@@ -11,7 +11,7 @@
   shell: "oc process -f https://raw.githubusercontent.com/epe105/minishift-addons/master/add-ons/che/templates/che-single-user.yml \
   --param PROJECT_NAME={{ item }} \
   --param DOMAIN_NAME={{ ocp_apps_domain }} \
-  --param OPENSHIFT_OAUTH_TOKEN={{ openshift_oauth_token }} \
+  --param OPENSHIFT_OAUTH_TOKEN=\"$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)\" \
   | oc create -f - -n {{ item }}"
   ignore_errors: true
 
@@ -24,6 +24,17 @@
   register: response
   until: response.status == 200
   changed_when: false
+
+- name: Get Service Account OAuth Token
+  shell: "oc sa get-token che -n {{ item }}"
+  register: sa_response
+
+- set_fact: openshift_oauth_token={{ sa_response.stdout }}
+
+- debug: var=openshift_oauth_token
+
+- name: Update openshift oauth token to service account
+  shell: "oc patch configmaps che -p '{\"data\":{\"openshift-oauth-token\":\"{{ openshift_oauth_token }}\"}}' -n {{ item }}"
 
 - name: Update custom stack to Che
   tags: install_custom_stack
@@ -78,7 +89,7 @@
             					"org.eclipse.che.ls.camel"
                     ],
                     "attributes": {
-                      "memoryLimitBytes": "2147483648"
+                      "memoryLimitBytes": "4294967296"
                     }
                   }
                 }
@@ -122,7 +133,7 @@
                 }
               },
               {
-                "commandLine": "cd ${explorer.current.file.path} && mvn fabric8:deploy",
+                "commandLine": "cd ${current.project.path} && mvn fabric8:deploy",
                 "name": "fabric8:deploy",
                 "type": "mvn",
                 "attributes": {
@@ -168,7 +179,7 @@
     status_code: 201
 
 - name: Make sure we go back do default project
-  shell: "oc set resources dc/che --limits=cpu=1,memory=2Gi --requests=cpu=200m,memory=512Mi -n {{ item }}"
+  shell: "oc set resources dc/che --limits=cpu=1,memory=4Gi --requests=cpu=200m,memory=512Mi -n {{ item }}"
 
 #- name: Annotate the empty project as requested by user
 #  shell: "oc annotate namespace {{ item }} openshift.io/requester={{ item }} --overwrite"
