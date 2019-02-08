@@ -24,12 +24,14 @@ The default password for all users is "openshift"
 
 Please update the following values in your install/ansible/inventory/workshop.inventory if creating a Environment Workshop WebPage.
 
-
--  create_login_page: true  | creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
--  ec2_region: us-east-1    | region where the nodes will live
--  ec2_name_prefix:         | prefix for the subdomain used for workshop page creation.  i.e. subdomain.domain.com
--  workshop_dns_zone=       | Sets the Route53 DNS zone to use for the S3 website.  Used for the domain name of your workshop page.
-
+-  creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
+    -  create_login_page: true
+-  region where the nodes will live
+    -  ec2_region: us-east-1    
+-  prefix for the subdomain used for workshop page creation.  i.e. subdomain.domain.com
+    -  ec2_name_prefix:       
+-  Sets the Route53 DNS zone to use for the S3 website.  Used for the domain name of your workshop page.
+    -  workshop_dns_zone=       
 
 ## Run Provision Environment
 
