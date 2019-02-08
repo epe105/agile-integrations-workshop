@@ -2,9 +2,9 @@
 localhost ansible_connection=local
 
 [workshop:vars]
-ocp_domain=ocp-ai.redhatgov.io
-ocp_apps_domain=apps.ocp-ai.redhatgov.io
-usersno=2
+ocp_domain=
+ocp_apps_domain=
+usersno=20
 che=true
 fuse=true
 threescale=true
@@ -22,3 +22,8 @@ create_ides=true
 create_fuses=true
 threescale_admin_access_token=admintoken
 threescale_master_access_token=mastertoken
+create_login_page=true
+ec2_region=us-east-1
+ec2_name_prefix=
+workshop_dns_zone=
+s3_state=present

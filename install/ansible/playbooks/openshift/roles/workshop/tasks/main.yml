@@ -1,4 +1,8 @@
 ---
+- import_role:
+    name: aws_workshop_login_page
+  when: create_login_page
+
 - name: User Projects
   include_role:
     name: user_projects
@@ -9,7 +13,7 @@
   shell: "oc project openshift"
 
 - name: Import Images
-  shell: "oc import-image mysql | oc import-image nodejs | oc import-image postgresql | oc import-image php | oc import-image fuse7-java-openshift:1.0 | oc import-image fuse7-java-openshift:1.1"
+  shell: "oc import-image mongodb:3.2 | oc import-image nodejs | oc import-image postgresql | oc import-image php | oc import-image fuse7-java-openshift:1.0 | oc import-image fuse7-java-openshift:1.1"
   ignore_errors: true
 
 - import_role:
@@ -43,4 +47,3 @@
 - import_role:
     name: provision_microcks
   when: microcks
-  
