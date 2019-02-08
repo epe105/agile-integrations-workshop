@@ -18,16 +18,17 @@ Update the install/ansible/inventory/workshop.inventory file to install the comp
 
 By setting certain options to true or false, you'll be able to install different parts of the workshop as needed.  Please make sure to edit the inventory file for the OCP hostname variables before running the install.
 
-The default password for all users is "openshift"
+The default password for all users is openshift
 
 ##Creating Workshop WebPage
 
 Please update the following values in your install/ansible/inventory/workshop.inventory if creating a Environment Workshop WebPage.
 
-create_login_page: true                # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
-ec2_region: us-east-1                  # region where the nodes will live
-ec2_name_prefix:                       # prefix for the subdomain used for workshop page creation.  i.e. subdomain.domain.com
-workshop_dns_zone=                     # Sets the Route53 DNS zone to use for the S3 website.  Used for the domain name of your workshop page.
+
+ |create_login_page: true |               # creates AWS S3 website for ec2_name_prefix.workshop_dns_zone
+ |ec2_region: us-east-1   |              # region where the nodes will live
+ | ec2_name_prefix:       |                # prefix for the subdomain used for workshop page creation.  i.e. subdomain.domain.com
+ |workshop_dns_zone=      |               # Sets the Route53 DNS zone to use for the S3 website.  Used for the domain name of your workshop page.
 
 
 ## Run Provision Environment
