@@ -34,9 +34,11 @@ Please update the following values in your install/ansible/inventory/workshop.in
 -  region where the nodes will live
     -  ec2_region: us-east-1    
 -  prefix for the subdomain used for workshop page creation.  i.e. subdomain.domain.com
-    -  ec2_name_prefix:       
+    -  ec2_name_prefix: 
+    - i.e ocp-ai      
 -  Sets the Route53 DNS zone to use for the S3 website.  Used for the domain name of your workshop page.
     -  workshop_dns_zone=       
+    - i.e. redhatgov.io
 
 ## Run Provision Environment
 
@@ -55,3 +57,4 @@ $ ansible-playbook -i install/ansible/inventory/workshop.inventory install/ansib
 Update delete.sh script with the amount of users in your environment
 
 $ delete.sh
+
