@@ -179,7 +179,7 @@
     status_code: 201
 
 - name: Make sure we go back do default project
-  shell: "oc set resources dc/che --limits=cpu=1,memory=4Gi --requests=cpu=200m,memory=512Mi -n {{ item }}"
+  shell: "oc set resources deploymentconfigs/che --limits=cpu=1,memory=4Gi --requests=cpu=200m,memory=512Mi -n {{ item }}"
 
 #- name: Annotate the empty project as requested by user
 #  shell: "oc annotate namespace {{ item }} openshift.io/requester={{ item }} --overwrite"

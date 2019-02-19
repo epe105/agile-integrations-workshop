@@ -28,7 +28,7 @@
 
 - name: Get Apicurio realm
   uri:
-    url: 'https://raw.githubusercontent.com/jbossdemocentral/3scale-api-workshop/master/support/templates/apicurio-realm.json'
+    url: 'https://raw.githubusercontent.com/epe105/3scale-api-workshop/master/support/templates/apicurio-realm.json'
     return_content: yes
   register: apicurio_realm
   when: create_realms

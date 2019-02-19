@@ -78,7 +78,7 @@
 
 ## oc describe dc/sso | grep SSO_ADMIN_PASSWORD | sed 's/.*://g' | sed -e 's/^[[:space:]]*//'
 - name: A workaround for integr8ly, as it does not support fix SSO password nor in ConfigMap SSO UserName
-  shell: "oc get dc/sso -o json"
+  shell: "oc get deploymentconfigs/sso -o json"
   register: sso_text
   when: configure_only == 'false'
 

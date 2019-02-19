@@ -24,7 +24,7 @@
       -n {{ item }}
 
 - name: resume syndesis oauthproxy and db
-  shell: oc rollout resume dc/syndesis-oauthproxy dc/syndesis-db -n {{ item }}
+  shell: oc rollout resume deploymentconfigs/syndesis-oauthproxy deploymentconfigs/syndesis-db -n {{ item }}
 - include_tasks: ./fuseonline_wait_for_deploy.yml
   vars:
     fuseonline_project: '{{ item }}'
@@ -34,10 +34,10 @@
 
 - name: Scale up broker-amq
   shell: |
-      oc scale dc/broker-amq --replicas=1 -n {{ item }}
+      oc scale deploymentconfigs/broker-amq --replicas=1 -n {{ item }}
 
 - name: resume broker-amq
-  shell: oc rollout resume dc/broker-amq -n {{ item }}
+  shell: oc rollout resume deploymentconfigs/broker-amq -n {{ item }}
 
 - include_tasks: ./fuseonline_wait_for_deploy.yml
   vars:
@@ -46,7 +46,7 @@
       - "broker-amq"
 
 - name: resume syndesis-meta
-  shell: oc rollout resume dc/syndesis-meta -n {{ item }}
+  shell: oc rollout resume deploymentconfigs/syndesis-meta -n {{ item }}
 
 - include_tasks: ./fuseonline_wait_for_deploy.yml
   vars:
@@ -55,7 +55,7 @@
       - syndesis-meta
 
 - name: resume syndesis-server
-  shell: oc rollout resume dc/syndesis-server -n {{ item }}
+  shell: oc rollout resume deploymentconfigs/syndesis-server -n {{ item }}
 
 - include_tasks: ./fuseonline_wait_for_deploy.yml
   vars:
@@ -64,7 +64,7 @@
       - syndesis-server
 
 - name: resume syndesis-ui
-  shell: oc rollout resume dc/syndesis-ui -n {{ item }}
+  shell: oc rollout resume deploymentconfigs/syndesis-ui -n {{ item }}
 
 - include_tasks: ./fuseonline_wait_for_deploy.yml
   vars:
@@ -73,7 +73,7 @@
       - syndesis-ui
 
 - name: resume syndesis-prometheus
-  shell: oc rollout resume dc/syndesis-prometheus -n {{ item }}
+  shell: oc rollout resume deploymentconfigs/syndesis-prometheus -n {{ item }}
 
 - include_tasks: ./fuseonline_wait_for_deploy.yml
   vars:

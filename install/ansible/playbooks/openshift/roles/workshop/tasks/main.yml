@@ -13,7 +13,7 @@
   shell: "oc project openshift"
 
 - name: Import Images
-  shell: "oc import-image mongodb:3.2 | oc import-image nodejs | oc import-image postgresql | oc import-image php | oc import-image fuse7-java-openshift:1.0 | oc import-image fuse7-java-openshift:1.1"
+  shell: "oc import-image postgresql:9.5 | oc import-image redhat-sso72-openshift:1.0 | oc import-image mongodb:3.2 | oc import-image nodejs | oc import-image postgresql | oc import-image php | oc import-image fuse7-java-openshift:1.0 | oc import-image fuse7-java-openshift:1.1"
   ignore_errors: true
 
 - import_role:

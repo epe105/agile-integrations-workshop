@@ -10,8 +10,13 @@ You can use either of the OpenShift provsioners from RedHatGov
  - https://github.com/jaredhocutt/openshift-provision
  - https://github.com/bit4man/ansible_agnostic_deployer
 
-We recommend that you provision about 5-10GBs of Memory per User.  For an workshop of 20 people, we recommend 4-6 m4.xlarge app nodes or larger.
+We recommend that you provision about 5-10GBs of Memory per User.  For a workshop of 20 people, we recommend 4-6 m4.xlarge app nodes or larger.
 
+ - Modern HTML5 Standard Compliant Web Browser
+ - A recent stable version of Python 2.7 and the latest stable version of the boto libraries (pip, boto, boto3, and botocore)
+ - The latest stable versions of Ansible.
+ - An AWS account with the aws cli setup to use your access key
+ 
 ## Workshop Configuration
 
 Update the install/ansible/inventory/workshop.inventory file to install the components needed for the workshop.
@@ -50,4 +55,3 @@ $ ansible-playbook -i install/ansible/inventory/workshop.inventory install/ansib
 Update delete.sh script with the amount of users in your environment
 
 $ delete.sh
-

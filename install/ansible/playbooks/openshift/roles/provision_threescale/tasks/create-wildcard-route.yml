@@ -1,6 +1,6 @@
 ---
 - name: Patch the OpenShift router to allow wildcard routes
-  shell: oc set env dc/router ROUTER_ALLOW_WILDCARD_ROUTES=true -n default
+  shell: oc set env deploymentconfigs/router ROUTER_ALLOW_WILDCARD_ROUTES=true -n default
   register: patch_openshift_router
 
 - name: Delete the existing wildcard route if it exists
