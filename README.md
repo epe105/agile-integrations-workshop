@@ -13,7 +13,7 @@ You can use either of the OpenShift provsioners from RedHatGov
 We recommend that you provision about 5-10GBs of Memory per User.  For a workshop of 20 people, we recommend 4-6 m4.xlarge app nodes or larger.
 
  - Modern HTML5 Standard Compliant Web Browser
- - A recent stable version of Python 2.7 and the latest stable version of the boto libraries (pip, boto, boto3, and botocore)
+ - A recent stable version of Python 2.7 and the latest stable version of the boto libraries (lxml, pip, boto, boto3, and botocore)
  - The latest stable versions of Ansible.
  - An AWS account with the aws cli setup to use your access key
  
@@ -33,9 +33,9 @@ Please update the following values in your install/ansible/inventory/workshop.in
     -  create_login_page: true
 -  region where the nodes will live
     -  ec2_region: us-east-1    
--  prefix for the subdomain used for workshop page creation.  i.e. subdomain.domain.com
+-  prefix for the subdomain used for workshop page creation.  Please use a separate subdomain from your openshift environment to avoid conflicts. Your webpage will be: subdomain.domain.com
     -  ec2_name_prefix: 
-    - i.e ocp-ai      
+    - i.e aiworkshop      
 -  Sets the Route53 DNS zone to use for the S3 website.  Used for the domain name of your workshop page.
     -  workshop_dns_zone=       
     - i.e. redhatgov.io

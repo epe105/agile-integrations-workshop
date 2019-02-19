@@ -16,6 +16,10 @@
   shell: "oc import-image postgresql:9.5 | oc import-image redhat-sso72-openshift:1.0 | oc import-image mongodb:3.2 | oc import-image nodejs | oc import-image postgresql | oc import-image php | oc import-image fuse7-java-openshift:1.0 | oc import-image fuse7-java-openshift:1.1"
   ignore_errors: true
 
+- name: Update tag of Fuse Images
+  shell: "oc tag registry.access.redhat.com/fuse7/fuse-java-openshift:1.1-4 openshift/fuse7-java-openshift:1.1 | oc tag registry.access.redhat.com/fuse7/fuse-java-openshift:1.0 openshift/fuse7-java-openshift:1.0"
+  ignore_errors: true
+
 - import_role:
     name: provision_che
   when: che
