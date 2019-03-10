@@ -137,7 +137,7 @@
     status_code: [201, 422]
   register: create_app_result
   when: app_config is defined and configure_only == 'false'
-  retries: 3
+  retries: 99
   delay: 10
   until: create_app_result is not failed
 
@@ -163,7 +163,7 @@
     status_code: 200
   register: update_policies_result
   when: proxy_config is defined
-  retries: 3
+  retries: 99
   delay: 10
   until: update_policies_result is not failed
 

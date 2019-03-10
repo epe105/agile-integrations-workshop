@@ -45,9 +45,10 @@
   when: apicurio
 
 - import_role:
+    name: provision_microcks
+  when: microcks
+
+- import_role:
     name: provision_gogs
   when: gogs
 
-- import_role:
-    name: provision_microcks
-  when: microcks
